@@ -10,7 +10,7 @@ export const SITE = {
   whatsapp: '263787456274',
   github: 'Samaita45',
   linkedin: 'https://linkedin.com/in/marlvin-munyanyi',
-  url: 'https://marlvinmunyanyi.dev',
+  url: 'https://samaita45.github.io/Marlvin-Portfolio/',
 } as const
 
 export const TITLE_ROTATION = [

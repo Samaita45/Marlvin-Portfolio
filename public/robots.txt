@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://marlvinmunyanyi.dev/sitemap.xml
+Sitemap: https://samaita45.github.io/Marlvin-Portfolio/sitemap.xml
