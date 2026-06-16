@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { ArrowDown, Download, FolderOpen, Mail, Github, Star, GitFork } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { SITE, TECH_STACK, TITLE_ROTATION } from '@/lib/constants'
-import { scrollToSection } from '@/lib/utils'
+import { scrollToSection, getPublicAssetSrc } from '@/lib/utils'
 import { useGitHub } from '@/hooks/useGitHub'
 import { AnimatedCounter } from '@/components/common/AnimatedCounter'
 import { Badge } from '@/components/ui/badge'
@@ -157,18 +157,12 @@ export function Hero() {
                 className="relative"
               >
                 <div className="relative h-64 w-64 overflow-hidden rounded-full border-2 border-electric/30 shadow-glow-lg sm:h-80 sm:w-80">
-                  {stats?.user.avatar_url ? (
-                    <img
-                      src={stats.user.avatar_url}
-                      alt={`${SITE.name} profile photo`}
-                      className="h-full w-full object-cover"
-                      loading="eager"
-                    />
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-electric/30 via-indigo-600/30 to-purple-600/30">
-                      <span className="text-6xl font-bold text-white sm:text-7xl">MA</span>
-                    </div>
-                  )}
+                  <img
+                    src={getPublicAssetSrc(SITE.profileImage)}
+                    alt={`${SITE.name} profile photo`}
+                    className="h-full w-full object-cover object-top"
+                    loading="eager"
+                  />
                 </div>
                 <div className="absolute -bottom-2 -left-2 rounded-full border border-border bg-card px-4 py-2 text-sm font-semibold text-muted-foreground shadow-glass">
                   {SITE.age} yrs

@@ -9,6 +9,11 @@ export interface Project {
   status?: 'Live' | 'Concept' | 'Completed'
   githubUrl?: string
   liveUrl?: string
+  /** Primary image for the project card */
+  image?: string
+  /** Optional gallery — both images show side-by-side when provided */
+  images?: string[]
+  imageAlt?: string
   imageGradient: string
   icon: string
 }
@@ -23,6 +28,12 @@ export const PROJECTS: Project[] = [
     category: 'iot',
     status: 'Completed',
     githubUrl: 'https://github.com/Samaita45',
+    image: '/projects/Water Quality System.jpeg',
+    images: [
+      '/projects/Water Quality System.jpeg',
+      '/projects/Water Quality system 2.jpeg',
+    ],
+    imageAlt: 'Smart Water Quality Monitoring System — sensor setup and monitoring interface',
     imageGradient: 'from-cyan-500/20 via-blue-600/20 to-indigo-600/20',
     icon: 'Droplets',
   },
@@ -35,6 +46,8 @@ export const PROJECTS: Project[] = [
     category: 'desktop',
     status: 'Completed',
     githubUrl: 'https://github.com/Samaita45',
+    image: '/projects/dairy-farm.svg',
+    imageAlt: 'Dairy Farm Records Management System desktop application preview',
     imageGradient: 'from-emerald-500/20 via-green-600/20 to-teal-600/20',
     icon: 'Database',
   },
@@ -47,6 +60,8 @@ export const PROJECTS: Project[] = [
     category: 'startup',
     status: 'Concept',
     githubUrl: 'https://github.com/Samaita45',
+    image: '/projects/FarmBridge.png',
+    imageAlt: 'FarmBridge farmer transport and marketplace platform preview',
     imageGradient: 'from-amber-500/20 via-orange-600/20 to-red-600/20',
     icon: 'Truck',
   },
@@ -60,6 +75,8 @@ export const PROJECTS: Project[] = [
     status: 'Live',
     liveUrl: 'https://deepwatersgardens.netlify.app/',
     githubUrl: 'https://github.com/Samaita45',
+    image: '/projects/gardening-website.jpg',
+    imageAlt: 'Deep Waters Garden Services website homepage',
     imageGradient: 'from-lime-500/20 via-green-500/20 to-emerald-600/20',
     icon: 'Leaf',
   },
@@ -73,6 +90,8 @@ export const PROJECTS: Project[] = [
     status: 'Live',
     liveUrl: 'https://dare2taste.netlify.app/#contact',
     githubUrl: 'https://github.com/Samaita45',
+    image: '/projects/catering-website.jpeg',
+    imageAlt: 'Dare_2_Taste catering services website homepage',
     imageGradient: 'from-rose-500/20 via-pink-600/20 to-purple-600/20',
     icon: 'UtensilsCrossed',
   },

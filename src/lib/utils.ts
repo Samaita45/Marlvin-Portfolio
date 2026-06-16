@@ -27,3 +27,13 @@ export function scrollToSection(id: string) {
     element.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 }
+
+/** Resolve a path from /public for GitHub Pages base URL (handles spaces in filenames) */
+export function getPublicAssetSrc(path: string): string {
+  if (path.startsWith('http://') || path.startsWith('https://')) {
+    return path
+  }
+  const normalized = path.startsWith('/') ? path.slice(1) : path
+  const encoded = normalized.split('/').map(encodeURIComponent).join('/')
+  return `${import.meta.env.BASE_URL}${encoded}`
+}

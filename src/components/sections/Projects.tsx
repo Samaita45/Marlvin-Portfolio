@@ -6,7 +6,7 @@ import { getLucideIcon } from '@/lib/icons'
 import { SectionHeading } from '@/components/common/SectionHeading'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
+import { cn, getPublicAssetSrc } from '@/lib/utils'
 
 function getStatusVariant(status?: string) {
   switch (status) {
@@ -56,6 +56,12 @@ export function Projects() {
         <motion.div layout className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((project, i) => {
             const IconComponent = getLucideIcon(project.icon)
+            const gallery =
+              project.images && project.images.length > 0
+                ? project.images
+                : project.image
+                  ? [project.image]
+                  : []
 
             return (
               <motion.article
@@ -68,17 +74,41 @@ export function Projects() {
                 whileHover={{ y: -8 }}
                 className="group glass-hover flex flex-col overflow-hidden rounded-2xl"
               >
-                {/* Image placeholder */}
+                {/* Project image */}
                 <div
                   className={cn(
-                    'relative flex h-48 items-center justify-center bg-gradient-to-br',
+                    'relative h-48 overflow-hidden bg-gradient-to-br',
                     project.imageGradient,
                   )}
                 >
-                  <IconComponent
-                    className="h-16 w-16 text-white/60 transition-transform duration-300 group-hover:scale-110"
-                    aria-hidden="true"
-                  />
+                  {gallery.length > 1 ? (
+                    <div className="grid h-full grid-cols-2 gap-0.5">
+                      {gallery.map((img, idx) => (
+                        <img
+                          key={img}
+                          src={getPublicAssetSrc(img)}
+                          alt={`${project.imageAlt ?? project.title} — view ${idx + 1}`}
+                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          loading="lazy"
+                        />
+                      ))}
+                    </div>
+                  ) : gallery.length === 1 ? (
+                    <img
+                      src={getPublicAssetSrc(gallery[0])}
+                      alt={project.imageAlt ?? `${project.title} preview`}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center">
+                      <IconComponent
+                        className="h-16 w-16 text-white/60 transition-transform duration-300 group-hover:scale-110"
+                        aria-hidden="true"
+                      />
+                    </div>
+                  )}
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
                   {project.status && (
                     <Badge
                       variant={getStatusVariant(project.status)}

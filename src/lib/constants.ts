@@ -11,6 +11,7 @@ export const SITE = {
   github: 'Samaita45',
   linkedin: 'https://linkedin.com/in/marlvin-munyanyi',
   url: 'https://samaita45.github.io/Marlvin-Portfolio/',
+  profileImage: '/projects/Profile.jpeg',
 } as const
 
 export const TITLE_ROTATION = [
