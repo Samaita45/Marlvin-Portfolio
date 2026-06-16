@@ -2,7 +2,7 @@
 
 A world-class, production-ready portfolio website built with React, TypeScript, Vite, Tailwind CSS, Framer Motion, and Shadcn UI.
 
-**Live Demo:** [marlvinmunyanyi.dev](https://marlvinmunyanyi.dev) *(update after deployment)*
+**Live Demo:** [samaita45.github.io/Marlvin-Portfolio](https://samaita45.github.io/Marlvin-Portfolio/)
 
 ## Features
 
