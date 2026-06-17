@@ -84,7 +84,7 @@ export function getFallbackGitHubStats(): GitHubStats {
       bio: 'Computer Science student passionate about software engineering and IoT.',
       avatar_url: '',
       html_url: `https://github.com/${GITHUB_USERNAME}`,
-      public_repos: 0,
+      public_repos: 1,
       followers: 0,
       following: 0,
       created_at: '2023-01-01T00:00:00Z',

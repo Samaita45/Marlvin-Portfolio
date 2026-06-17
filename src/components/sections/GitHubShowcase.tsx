@@ -1,9 +1,10 @@
 import { motion } from 'framer-motion'
 import { ExternalLink, GitFork, Github, Star } from 'lucide-react'
-import { SITE } from '@/lib/constants'
+import { SITE, GITHUB_STATS } from '@/lib/constants'
 import { useGitHub } from '@/hooks/useGitHub'
 import { SectionHeading } from '@/components/common/SectionHeading'
 import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 
 const LANGUAGE_COLORS: Record<string, string> = {
@@ -21,6 +22,8 @@ export function GitHubShowcase() {
 
   const languages = stats?.languages ?? {}
   const totalLang = Object.values(languages).reduce((a, b) => a + b, 0)
+  const publicRepoCount = stats?.user.public_repos ?? stats?.repos.length ?? 0
+  const privateRepoCount = Math.max(0, GITHUB_STATS.totalRepositories - publicRepoCount)
 
   return (
     <section id="github" className="section-padding" aria-label="GitHub showcase section">
@@ -28,7 +31,7 @@ export function GitHubShowcase() {
         <SectionHeading
           label="Open Source"
           title="GitHub Activity"
-          description="Explore my repositories, contributions, and coding activity on GitHub."
+          description={`${GITHUB_STATS.totalRepositories} repositories on GitHub — active across public and private projects.`}
         />
 
         {loading ? (
@@ -39,6 +42,29 @@ export function GitHubShowcase() {
           </div>
         ) : (
           <>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="glass mb-8 flex flex-wrap items-center justify-between gap-4 rounded-2xl p-6"
+            >
+              <div>
+                <p className="text-2xl font-bold text-foreground">
+                  {GITHUB_STATS.totalRepositories} repositories
+                </p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  {publicRepoCount} public · {privateRepoCount} private
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <Badge variant="default">{GITHUB_STATS.totalRepositories} total</Badge>
+                <Badge variant="secondary">{publicRepoCount} public</Badge>
+                {privateRepoCount > 0 && (
+                  <Badge variant="outline">{privateRepoCount} private</Badge>
+                )}
+              </div>
+            </motion.div>
+
             {/* Language breakdown */}
             {totalLang > 0 && (
               <motion.div
@@ -117,6 +143,12 @@ export function GitHubShowcase() {
             </motion.div>
 
             {/* Repositories */}
+            {privateRepoCount > 0 && (
+              <p className="mb-4 text-sm text-muted-foreground">
+                Public repositories are listed below. Additional private projects are available on
+                request for internships and collaborations.
+              </p>
+            )}
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {stats?.repos.length ? (
                 stats.repos.map((repo, i) => (

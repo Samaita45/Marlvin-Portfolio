@@ -14,6 +14,11 @@ export const SITE = {
   profileImage: '/projects/Profile.jpeg',
 } as const
 
+/** Total repos on GitHub (public + private). Public API only lists public repos. */
+export const GITHUB_STATS = {
+  totalRepositories: 7,
+} as const
+
 export const TITLE_ROTATION = [
   'Computer Science Student',
   'Software Developer',

@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { ArrowDown, Download, FolderOpen, Mail, Github, Star, GitFork } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { SITE, TECH_STACK, TITLE_ROTATION } from '@/lib/constants'
+import { SITE, TECH_STACK, TITLE_ROTATION, GITHUB_STATS } from '@/lib/constants'
 import { scrollToSection, getPublicAssetSrc } from '@/lib/utils'
 import { useGitHub } from '@/hooks/useGitHub'
 import { AnimatedCounter } from '@/components/common/AnimatedCounter'
@@ -122,7 +122,7 @@ export function Hero() {
                 className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4"
               >
                 {[
-                  { label: 'Repositories', value: stats.user.public_repos, icon: Github },
+                  { label: 'Repositories', value: GITHUB_STATS.totalRepositories, icon: Github },
                   { label: 'Followers', value: stats.user.followers, icon: Star },
                   { label: 'Following', value: stats.user.following, icon: GitFork },
                   { label: 'Total Stars', value: stats.totalStars, icon: Star },
