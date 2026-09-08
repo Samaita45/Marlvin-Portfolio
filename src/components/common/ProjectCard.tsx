@@ -1,13 +1,14 @@
-import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { SmartLink } from '@/components/common/SmartLink'
+import { StatusBadge } from '@/components/common/StatusBadge'
+import { getProjectLink } from '@/data/catalog'
 import { STATUS_LABEL } from '@/lib/status'
 import type { Project } from '@/lib/types'
 import { getPublicAssetSrc } from '@/lib/utils'
-import { StatusBadge } from '@/components/common/StatusBadge'
-import { AssetPlaceholder } from '@/components/common/AssetPlaceholder'
 
 export function ProjectCard({ project, index = 0 }: { project: Project; index?: number }) {
   const image = project.screenshots[0]
+  const link = getProjectLink(project)
 
   return (
     <motion.article
@@ -15,11 +16,9 @@ export function ProjectCard({ project, index = 0 }: { project: Project; index?: 
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.04, duration: 0.4 }}
+      className="h-full border border-border bg-card"
     >
-      <Link
-        to={`/work/${project.slug}`}
-        className="group block h-full border border-border bg-card transition-colors hover:border-foreground/30"
-      >
+      <SmartLink href={link.href} className="block h-full transition-colors hover:border-foreground/30">
         <div className="overflow-hidden border-b border-border">
           {image ? (
             <img
@@ -28,12 +27,14 @@ export function ProjectCard({ project, index = 0 }: { project: Project; index?: 
               className={
                 image.src.includes('logo')
                   ? 'h-48 w-full bg-secondary/50 object-contain p-8'
-                  : 'h-48 w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]'
+                  : 'h-48 w-full object-cover'
               }
               loading="lazy"
             />
           ) : (
-            <AssetPlaceholder label={project.title} className="min-h-48" />
+            <div className="flex min-h-48 items-center justify-center bg-secondary/40 px-6 text-center">
+              <p className="font-display text-xl text-foreground">{project.title}</p>
+            </div>
           )}
         </div>
         <div className="p-5">
@@ -43,14 +44,11 @@ export function ProjectCard({ project, index = 0 }: { project: Project; index?: 
               {project.category}
             </span>
           </div>
-          <h3 className="mt-3 font-display text-2xl tracking-tight text-foreground group-hover:text-accent">
-            {project.title}
-          </h3>
-          {project.company && (
-            <p className="mt-2 text-xs text-muted-foreground">{project.company}</p>
-          )}
+          <h3 className="mt-3 font-display text-2xl tracking-tight text-foreground">{project.title}</h3>
+          {project.company && <p className="mt-2 text-xs text-muted-foreground">{project.company}</p>}
+          {project.role && <p className="mt-1 text-xs text-muted-foreground">{project.role}</p>}
         </div>
-      </Link>
+      </SmartLink>
     </motion.article>
   )
 }

@@ -213,4 +213,5 @@ export interface BuildingItem {
   href: string
   kind: 'organization' | 'project' | 'slot'
   image?: string | null
+  subtitle?: string
 }

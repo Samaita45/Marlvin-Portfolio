@@ -19,7 +19,7 @@ export function Navbar() {
       setScrolled(window.scrollY > 12)
       if (location.pathname !== '/') return
 
-      const ids = ['home', 'work', 'about', 'github', 'contact']
+      const ids = ['home', 'building', 'projects', 'companies', 'lab', 'experience', 'github', 'contact']
       for (const id of [...ids].reverse()) {
         const el = document.getElementById(id)
         if (el && el.getBoundingClientRect().top <= 120) {

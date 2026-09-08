@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom'
 import { SectionHeading } from '@/components/common/SectionHeading'
+import { SmartLink } from '@/components/common/SmartLink'
 import { StatusBadge } from '@/components/common/StatusBadge'
-import { getRoadmap } from '@/data/catalog'
+import { getProjectLink, getRoadmap } from '@/data/catalog'
 import { STATUS_LABEL } from '@/lib/status'
 
 const BUCKETS = [
@@ -16,7 +16,7 @@ export function Roadmap() {
   return (
     <section id="roadmap" className="section-padding border-t border-border" aria-label="Product roadmap">
       <div className="section-container">
-        <SectionHeading label="Roadmap" title="Roadmap" />
+        <SectionHeading label="13" title="Roadmap" />
 
         <div className="grid gap-4 lg:grid-cols-3">
           {BUCKETS.map((bucket) => {
@@ -32,12 +32,13 @@ export function Roadmap() {
                   )}
                   {items.map((project) => (
                     <li key={project.id}>
-                      <Link to={`/work/${project.slug}`} className="block hover:text-accent">
-                        <div className="flex items-center justify-between gap-2">
-                          <span className="font-display text-xl text-foreground">{project.title}</span>
-                          <StatusBadge status={project.status} label={STATUS_LABEL[project.status]} />
-                        </div>
-                      </Link>
+                      <SmartLink
+                        href={getProjectLink(project).href}
+                        className="flex items-center justify-between gap-2 hover:text-accent"
+                      >
+                        <span className="font-display text-xl text-foreground">{project.title}</span>
+                        <StatusBadge status={project.status} label={STATUS_LABEL[project.status]} />
+                      </SmartLink>
                     </li>
                   ))}
                 </ul>

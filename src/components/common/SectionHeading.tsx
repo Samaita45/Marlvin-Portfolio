@@ -19,8 +19,7 @@ export function SectionHeading({ index, label, title, description, className }: 
       className={cn('mb-10 md:mb-14', className)}
     >
       <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
-        {index ? `${index}  ` : ''}
-        {label}
+        {index && index !== label ? `${index}  ${label}` : label}
       </p>
       <h2 className="mt-3 max-w-3xl font-display text-3xl tracking-tight text-foreground md:text-4xl text-balance">
         {title}

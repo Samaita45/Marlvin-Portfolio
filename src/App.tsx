@@ -7,12 +7,10 @@ import { ScrollProgress } from '@/components/common/ScrollProgress'
 import { Footer } from '@/components/layout/Footer'
 import { Navbar } from '@/components/layout/Navbar'
 import { SITE } from '@/lib/constants'
-import { getOrganizationBySlug, getProjectBySlug } from '@/data/catalog'
-import { CaseStudyPage } from '@/pages/CaseStudyPage'
+import { getOrganizationBySlug } from '@/data/catalog'
 import { HomePage } from '@/pages/HomePage'
 import { NotFoundPage } from '@/pages/NotFoundPage'
 import { OrganizationPage } from '@/pages/OrganizationPage'
-import { WorkPage } from '@/pages/WorkPage'
 
 function PageTransition({ children }: { children: React.ReactNode }) {
   return (
@@ -32,20 +30,9 @@ function usePageTitle() {
 
   useEffect(() => {
     const parts = location.pathname.split('/').filter(Boolean)
-    if (parts[0] === 'work' && parts[1]) {
-      const project = getProjectBySlug(parts[1])
-      document.title = project
-        ? `${project.title} | ${SITE.name}`
-        : `Work | ${SITE.name}`
-      return
-    }
     if (parts[0] === 'org' && parts[1]) {
       const org = getOrganizationBySlug(parts[1])
       document.title = org ? `${org.name} | ${SITE.name}` : `Company | ${SITE.name}`
-      return
-    }
-    if (parts[0] === 'work') {
-      document.title = `Work | ${SITE.name}`
       return
     }
     document.title = `${SITE.name} | Computer Science Student & Product Builder`
@@ -74,22 +61,6 @@ function AppLayout() {
               element={
                 <PageTransition>
                   <HomePage />
-                </PageTransition>
-              }
-            />
-            <Route
-              path="/work"
-              element={
-                <PageTransition>
-                  <WorkPage />
-                </PageTransition>
-              }
-            />
-            <Route
-              path="/work/:slug"
-              element={
-                <PageTransition>
-                  <CaseStudyPage />
                 </PageTransition>
               }
             />

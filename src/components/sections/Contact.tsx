@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import emailjs from '@emailjs/browser'
-import { Check, Copy, Github, Linkedin, Mail, Phone, Send } from 'lucide-react'
+import { Check, Copy, Github, Linkedin, Phone, Send } from 'lucide-react'
 import { useState, type FormEvent } from 'react'
 import { SectionHeading } from '@/components/common/SectionHeading'
 import { Button } from '@/components/ui/button'
@@ -70,7 +70,7 @@ export function Contact() {
   return (
     <section id="contact" className="section-padding border-t border-border" aria-label="Contact">
       <div className="section-container">
-        <SectionHeading index="05" label="05" title="Contact" />
+        <SectionHeading index="12" label="12" title="Contact" />
 
         <div className="grid gap-10 lg:grid-cols-5">
           <motion.div
@@ -120,13 +120,6 @@ export function Contact() {
                 <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">LinkedIn</p>
                 <p className="mt-1 text-sm text-foreground">linkedin.com/in/{SITE.linkedinHandle}</p>
               </div>
-            </a>
-            <a
-              href={`mailto:${SITE.email}`}
-              className="flex items-center gap-3 border border-border p-5"
-            >
-              <Mail className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
-              <p className="text-sm text-foreground">Open your email app</p>
             </a>
           </motion.div>
 

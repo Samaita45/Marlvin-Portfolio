@@ -44,12 +44,24 @@ export function Organizations() {
                     {products.map((product) => product.title).join(' · ')}
                   </p>
                 )}
-                <Link
-                  to={`/org/${org.slug}`}
-                  className="mt-5 inline-flex font-mono text-[11px] uppercase tracking-[0.16em] text-foreground underline-offset-4 hover:underline"
-                >
-                  Company profile
-                </Link>
+                <div className="mt-5 flex flex-wrap gap-4">
+                  <Link
+                    to={`/org/${org.slug}`}
+                    className="font-mono text-[11px] uppercase tracking-[0.16em] text-foreground underline-offset-4 hover:underline"
+                  >
+                    Profile
+                  </Link>
+                  {org.github && (
+                    <a
+                      href={`https://github.com/${org.github}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-mono text-[11px] uppercase tracking-[0.16em] text-foreground underline-offset-4 hover:underline"
+                    >
+                      GitHub
+                    </a>
+                  )}
+                </div>
               </motion.article>
             )
           })}

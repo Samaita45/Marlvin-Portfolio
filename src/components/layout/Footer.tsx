@@ -15,8 +15,10 @@ export function Footer() {
           <div>
             <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">On this site</p>
             <ul className="mt-4 space-y-2 text-sm">
-              <li><Link to="/#work" className="text-muted-foreground hover:text-foreground">Work</Link></li>
-              <li><Link to="/#about" className="text-muted-foreground hover:text-foreground">About</Link></li>
+              <li><Link to="/#building" className="text-muted-foreground hover:text-foreground">What I&apos;m building</Link></li>
+              <li><Link to="/#projects" className="text-muted-foreground hover:text-foreground">Projects</Link></li>
+              <li><Link to="/#companies" className="text-muted-foreground hover:text-foreground">Companies</Link></li>
+              <li><Link to="/#lab" className="text-muted-foreground hover:text-foreground">Engineering lab</Link></li>
               <li><Link to="/#github" className="text-muted-foreground hover:text-foreground">GitHub</Link></li>
               <li><Link to="/#contact" className="text-muted-foreground hover:text-foreground">Contact</Link></li>
             </ul>

@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion'
 import { ArrowDown, Download, Github, Linkedin } from 'lucide-react'
-import { Link } from 'react-router-dom'
 import { getCurrentlyBuilding } from '@/data/catalog'
 import { SITE } from '@/lib/constants'
 import { getPublicAssetSrc, scrollToSection } from '@/lib/utils'
+import { SmartLink } from '@/components/common/SmartLink'
 import { StatusBadge } from '@/components/common/StatusBadge'
 import { Button } from '@/components/ui/button'
 
@@ -34,7 +34,7 @@ export function Hero() {
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button size="lg" onClick={() => scrollToSection('work')}>
+              <Button size="lg" onClick={() => scrollToSection('projects')}>
                 View Projects
               </Button>
               <Button variant="outline" size="lg" asChild>
@@ -66,15 +66,10 @@ export function Hero() {
                   {current.map((item) => (
                     <li key={item.id} className="flex flex-wrap items-center gap-3">
                       <StatusBadge status={item.status} />
-                      {item.href.startsWith('/') && !item.href.startsWith('/#') ? (
-                        <Link to={item.href} className="text-sm text-foreground hover:text-accent">
-                          {item.title}
-                        </Link>
-                      ) : (
-                        <a href={item.href} className="text-sm text-foreground hover:text-accent">
-                          {item.title}
-                        </a>
-                      )}
+                      <SmartLink href={item.href} className="text-sm text-foreground hover:text-accent">
+                        {item.title}
+                        {item.subtitle ? ` · ${item.subtitle}` : ''}
+                      </SmartLink>
                     </li>
                   ))}
                 </ul>
@@ -98,8 +93,8 @@ export function Hero() {
         </div>
 
         <button
-          onClick={() => scrollToSection('work')}
-          aria-label="Scroll to work"
+          onClick={() => scrollToSection('building')}
+          aria-label="Scroll to what I am building"
           className="focus-ring mt-14 hidden items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground hover:text-foreground md:inline-flex"
         >
           Continue

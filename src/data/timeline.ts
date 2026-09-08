@@ -19,7 +19,7 @@ export const TIMELINE: TimelineGroup[] = [
       'Software products',
       'NeighborLink Technologies',
       'Omnia',
-      'DCPOMS',
+      'DCPOMS — Dyke Carbon Tech Management System',
       'CCNA',
     ],
   },

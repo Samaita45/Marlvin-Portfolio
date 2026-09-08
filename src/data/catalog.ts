@@ -32,10 +32,6 @@ export function getProjectsByFilter(filter: ProjectFilter): Project[] {
   return PROJECTS.filter((project) => project.filters.includes(filter))
 }
 
-export function getFeaturedProjects(): Project[] {
-  return PROJECTS.filter((project) => project.featured)
-}
-
 export function getLabProjects(): Project[] {
   return PROJECTS.filter((project) => project.showInLab)
 }
@@ -44,12 +40,10 @@ export function getProductProjects(): Project[] {
   return PROJECTS.filter((project) => project.showInProducts)
 }
 
-export function getRelatedProjects(project: Project): Project[] {
-  return PROJECTS.filter((item) => {
-    if (item.id === project.id) return false
-    if (project.organizationId && item.organizationId === project.organizationId) return true
-    return item.filters.some((tag) => project.filters.includes(tag))
-  }).slice(0, 3)
+export function getProjectLink(project: Project): { href: string; external: boolean } {
+  if (project.liveUrl) return { href: project.liveUrl, external: true }
+  if (project.organizationUrl) return { href: project.organizationUrl, external: false }
+  return { href: '/#projects', external: false }
 }
 
 export function getRoadmap(): Record<RoadmapBucket, Project[]> {
@@ -82,9 +76,10 @@ export function getBuildingItems(): BuildingItem[] {
       title: project.title,
       status: buildingLabelFromStatus(project.status),
       summary: project.description,
-      href: `/work/${project.slug}`,
+      href: getProjectLink(project).href,
       kind: 'project',
       image: project.screenshots[0]?.src ?? null,
+      subtitle: project.category,
     })
   }
 
@@ -92,8 +87,7 @@ export function getBuildingItems(): BuildingItem[] {
     id: 'future-projects',
     title: 'Future Projects',
     status: 'Planned',
-    summary:
-      'Further products will appear here as they move from idea into research or development.',
+    summary: 'Work that is planned or still at concept stage.',
     href: '/#roadmap',
     kind: 'slot',
   })

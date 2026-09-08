@@ -5,7 +5,7 @@ export function Timeline() {
   return (
     <section id="timeline" className="section-padding border-t border-border" aria-label="Timeline">
       <div className="section-container">
-        <SectionHeading label="Timeline" title="Timeline" />
+        <SectionHeading label="14" title="Timeline" />
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {TIMELINE.map((group) => (

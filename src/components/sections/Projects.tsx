@@ -1,8 +1,6 @@
 import { useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { ProjectCard } from '@/components/common/ProjectCard'
 import { SectionHeading } from '@/components/common/SectionHeading'
-import { Button } from '@/components/ui/button'
 import { PROJECT_FILTERS, getProjectsByFilter } from '@/data/catalog'
 import type { ProjectFilter } from '@/lib/types'
 import { cn } from '@/lib/utils'
@@ -45,11 +43,6 @@ export function Projects() {
           </div>
         )}
 
-        <div className="mt-10">
-          <Button variant="outline" asChild>
-            <Link to="/work">View all work</Link>
-          </Button>
-        </div>
       </div>
     </section>
   )

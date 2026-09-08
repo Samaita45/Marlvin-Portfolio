@@ -29,8 +29,17 @@ export const SITE = {
 } as const
 
 export const NAV_LINKS = [
-  { label: 'Work', href: '/#work' },
-  { label: 'About', href: '/#about' },
+  { label: 'Building', href: '/#building' },
+  { label: 'Work', href: '/#projects' },
+  { label: 'Companies', href: '/#companies' },
+  { label: 'Lab', href: '/#lab' },
+  { label: 'Experience', href: '/#experience' },
   { label: 'GitHub', href: '/#github' },
   { label: 'Contact', href: '/#contact' },
 ] as const
+
+export const GITHUB_ORG = {
+  name: 'Sky Technologies',
+  login: 'Samaz-Localman-Technologies',
+  url: 'https://github.com/Samaz-Localman-Technologies',
+} as const
