@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail } from 'lucide-react'
+import { Github, Linkedin, Mail, Send } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { SITE } from '@/lib/constants'
 
@@ -43,6 +43,15 @@ export function Footer() {
                 className="focus-ring flex h-10 w-10 items-center justify-center border border-border text-muted-foreground hover:text-foreground"
               >
                 <Linkedin className="h-4 w-4" />
+              </a>
+              <a
+                href={SITE.whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
+                className="focus-ring flex h-10 w-10 items-center justify-center border border-border text-muted-foreground hover:text-foreground"
+              >
+                <Send className="h-4 w-4" />
               </a>
               <a
                 href={`mailto:${SITE.email}`}

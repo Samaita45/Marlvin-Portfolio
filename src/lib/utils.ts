@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
+import { SITE } from '@/lib/constants'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -26,6 +27,12 @@ export function scrollToSection(id: string) {
   if (element) {
     element.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
+}
+
+export function getWhatsAppUrl(text?: string): string {
+  const base = `https://wa.me/${SITE.whatsapp}`
+  if (!text?.trim()) return base
+  return `${base}?text=${encodeURIComponent(text)}`
 }
 
 export function hashFromHref(href: string): string | null {

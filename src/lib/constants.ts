@@ -19,6 +19,8 @@ export const SITE = {
   phone: '+263787456274',
   phoneDisplay: '+263 78 745 6274',
   whatsapp: '263787456274',
+  whatsappDisplay: '078 745 6274',
+  whatsappUrl: 'https://wa.me/263787456274',
   github: 'Samaita45',
   linkedin: 'https://linkedin.com/in/marlvinmunyanyi',
   linkedinHandle: 'marlvinmunyanyi',

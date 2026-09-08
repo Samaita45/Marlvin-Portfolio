@@ -82,8 +82,16 @@ export function ProductWork() {
                 {dcpoms.description}
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
-                {dyke && (
+                {dcpoms.liveUrl && (
                   <Button asChild>
+                    <a href={dcpoms.liveUrl} target="_blank" rel="noopener noreferrer">
+                      <ExternalLink />
+                      Open DCPOMS
+                    </a>
+                  </Button>
+                )}
+                {dyke && (
+                  <Button variant="outline" asChild>
                     <Link to={`/org/${dyke.slug}`}>Dyke Carbon Tech</Link>
                   </Button>
                 )}

@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import emailjs from '@emailjs/browser'
 import { Check, Copy, Github, Linkedin, Phone, Send } from 'lucide-react'
 import { useState, type FormEvent } from 'react'
 import { SectionHeading } from '@/components/common/SectionHeading'
@@ -8,7 +7,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { SITE } from '@/lib/constants'
-import { copyToClipboard } from '@/lib/utils'
+import { copyToClipboard, getWhatsAppUrl } from '@/lib/utils'
 
 interface FormData {
   name: string
@@ -21,7 +20,7 @@ const initialForm: FormData = { name: '', email: '', subject: '', message: '' }
 
 export function Contact() {
   const [form, setForm] = useState<FormData>(initialForm)
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [status, setStatus] = useState<'idle' | 'success'>('idle')
   const [copied, setCopied] = useState(false)
 
   const handleCopyEmail = async () => {
@@ -32,39 +31,26 @@ export function Contact() {
     }
   }
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
-    setStatus('loading')
 
-    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID
-    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
-    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+    const text = [
+      form.subject,
+      '',
+      form.message,
+      '',
+      `From: ${form.name}`,
+      `Email: ${form.email}`,
+    ].join('\n')
 
-    if (!serviceId || !templateId || !publicKey || serviceId === 'your_service_id') {
-      window.location.href = `mailto:${SITE.email}?subject=${encodeURIComponent(form.subject)}&body=${encodeURIComponent(`From: ${form.name} (${form.email})\n\n${form.message}`)}`
-      setStatus('success')
-      setForm(initialForm)
-      return
+    const url = getWhatsAppUrl(text)
+    const opened = window.open(url, '_blank', 'noopener,noreferrer')
+    if (!opened) {
+      window.location.href = url
     }
 
-    try {
-      await emailjs.send(
-        serviceId,
-        templateId,
-        {
-          from_name: form.name,
-          from_email: form.email,
-          subject: form.subject,
-          message: form.message,
-          to_email: SITE.email,
-        },
-        publicKey,
-      )
-      setStatus('success')
-      setForm(initialForm)
-    } catch {
-      setStatus('error')
-    }
+    setStatus('success')
+    setForm(initialForm)
   }
 
   return (
@@ -95,6 +81,18 @@ export function Contact() {
               <div>
                 <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">Phone</p>
                 <p className="mt-1 text-sm text-foreground">{SITE.phoneDisplay}</p>
+              </div>
+            </a>
+            <a
+              href={SITE.whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 border border-border p-5"
+            >
+              <Send className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+              <div>
+                <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">WhatsApp</p>
+                <p className="mt-1 text-sm text-foreground">{SITE.whatsappDisplay}</p>
               </div>
             </a>
             <a
@@ -178,18 +176,13 @@ export function Contact() {
 
             {status === 'success' && (
               <p className="mt-4 text-sm text-emerald-700 dark:text-emerald-300" role="status">
-                Message sent. I will reply when I can.
-              </p>
-            )}
-            {status === 'error' && (
-              <p className="mt-4 text-sm text-red-700 dark:text-red-300" role="alert">
-                The form did not send. Email me directly at {SITE.email}.
+                WhatsApp is opening with your message.
               </p>
             )}
 
-            <Button type="submit" size="lg" className="mt-6" disabled={status === 'loading'}>
+            <Button type="submit" size="lg" className="mt-6">
               <Send className="h-4 w-4" />
-              {status === 'loading' ? 'Sending…' : 'Send message'}
+              Send message
             </Button>
           </motion.form>
         </div>
