@@ -1,14 +1,14 @@
 import { motion } from 'framer-motion'
 import emailjs from '@emailjs/browser'
-import { Check, Copy, Github, Linkedin, Mail, MessageCircle, Phone, Send } from 'lucide-react'
+import { Check, Copy, Github, Linkedin, Mail, Phone, Send } from 'lucide-react'
 import { useState, type FormEvent } from 'react'
-import { SITE } from '@/lib/constants'
-import { copyToClipboard } from '@/lib/utils'
 import { SectionHeading } from '@/components/common/SectionHeading'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
+import { SITE } from '@/lib/constants'
+import { copyToClipboard } from '@/lib/utils'
 
 interface FormData {
   name: string
@@ -41,7 +41,6 @@ export function Contact() {
     const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
 
     if (!serviceId || !templateId || !publicKey || serviceId === 'your_service_id') {
-      // Fallback: open mailto
       window.location.href = `mailto:${SITE.email}?subject=${encodeURIComponent(form.subject)}&body=${encodeURIComponent(`From: ${form.name} (${form.email})\n\n${form.message}`)}`
       setStatus('success')
       setForm(initialForm)
@@ -68,121 +67,94 @@ export function Contact() {
     }
   }
 
-  const contactLinks = [
-    {
-      icon: Mail,
-      label: 'Email',
-      value: SITE.email,
-      href: `mailto:${SITE.email}`,
-      action: handleCopyEmail,
-      actionLabel: copied ? 'Copied!' : 'Copy',
-    },
-    {
-      icon: Phone,
-      label: 'Phone',
-      value: SITE.phone,
-      href: `tel:${SITE.phone}`,
-    },
-    {
-      icon: Github,
-      label: 'GitHub',
-      value: `@${SITE.github}`,
-      href: `https://github.com/${SITE.github}`,
-    },
-    {
-      icon: Linkedin,
-      label: 'LinkedIn',
-      value: 'marlvin-munyanyi',
-      href: SITE.linkedin,
-    },
-  ]
-
   return (
-    <section id="contact" className="section-padding bg-card/20" aria-label="Contact section">
+    <section id="contact" className="section-padding border-t border-border" aria-label="Contact">
       <div className="section-container">
-        <SectionHeading
-          label="Contact"
-          title="Let's Work Together"
-          description="Open to internships, freelance projects, and collaboration opportunities."
-        />
+        <SectionHeading index="05" label="05" title="Contact" />
 
         <div className="grid gap-10 lg:grid-cols-5">
-          {/* Contact info */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="space-y-4 lg:col-span-2"
+            className="space-y-3 lg:col-span-2"
           >
-            {contactLinks.map(({ icon: Icon, label, value, href, action, actionLabel }) => (
-              <div key={label} className="glass rounded-xl p-5">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-electric/10 text-electric-light">
-                    <Icon className="h-5 w-5" aria-hidden="true" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                      {label}
-                    </p>
-                    <a
-                      href={href}
-                      target={href.startsWith('http') ? '_blank' : undefined}
-                      rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      className="block truncate text-sm font-medium text-foreground hover:text-electric-light transition-colors"
-                    >
-                      {value}
-                    </a>
-                  </div>
-                  {action && (
-                    <Button variant="ghost" size="sm" onClick={action} aria-label="Copy email address">
-                      {copied ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4" />}
-                      {actionLabel}
-                    </Button>
-                  )}
-                </div>
+            <div className="border border-border p-5">
+              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">Email</p>
+              <div className="mt-2 flex items-center justify-between gap-3">
+                <a href={`mailto:${SITE.email}`} className="truncate text-sm text-foreground hover:underline">
+                  {SITE.email}
+                </a>
+                <Button variant="ghost" size="sm" onClick={handleCopyEmail} aria-label="Copy email address">
+                  {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                </Button>
               </div>
-            ))}
-
-            <Button variant="default" size="lg" className="w-full" asChild>
-              <a
-                href={`https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent("Hi Marlvin, I'd like to discuss a project opportunity.")}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <MessageCircle className="h-5 w-5" />
-                Chat on WhatsApp
-              </a>
-            </Button>
+            </div>
+            <a href={`tel:${SITE.phone}`} className="flex items-center gap-3 border border-border p-5">
+              <Phone className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+              <div>
+                <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">Phone</p>
+                <p className="mt-1 text-sm text-foreground">{SITE.phoneDisplay}</p>
+              </div>
+            </a>
+            <a
+              href={`https://github.com/${SITE.github}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 border border-border p-5"
+            >
+              <Github className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+              <div>
+                <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">GitHub</p>
+                <p className="mt-1 text-sm text-foreground">@{SITE.github}</p>
+              </div>
+            </a>
+            <a
+              href={SITE.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 border border-border p-5"
+            >
+              <Linkedin className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+              <div>
+                <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">LinkedIn</p>
+                <p className="mt-1 text-sm text-foreground">linkedin.com/in/{SITE.linkedinHandle}</p>
+              </div>
+            </a>
+            <a
+              href={`mailto:${SITE.email}`}
+              className="flex items-center gap-3 border border-border p-5"
+            >
+              <Mail className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+              <p className="text-sm text-foreground">Open your email app</p>
+            </a>
           </motion.div>
 
-          {/* Contact form */}
           <motion.form
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             onSubmit={handleSubmit}
-            className="glass rounded-2xl p-8 lg:col-span-3"
+            className="border border-border p-6 md:p-8 lg:col-span-3"
             aria-label="Contact form"
           >
             <div className="grid gap-5 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="name">Full Name</Label>
+                <Label htmlFor="name">Name</Label>
                 <Input
                   id="name"
                   name="name"
-                  placeholder="John Doe"
                   required
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="email">Email Address</Label>
+                <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
                   name="email"
                   type="email"
-                  placeholder="john@example.com"
                   required
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
@@ -194,7 +166,6 @@ export function Contact() {
               <Input
                 id="subject"
                 name="subject"
-                placeholder="Project inquiry"
                 required
                 value={form.subject}
                 onChange={(e) => setForm({ ...form, subject: e.target.value })}
@@ -205,7 +176,6 @@ export function Contact() {
               <Textarea
                 id="message"
                 name="message"
-                placeholder="Tell me about your project..."
                 required
                 rows={5}
                 value={form.message}
@@ -214,24 +184,19 @@ export function Contact() {
             </div>
 
             {status === 'success' && (
-              <p className="mt-4 text-sm text-emerald-400" role="status">
-                Message sent successfully! I&apos;ll get back to you soon.
+              <p className="mt-4 text-sm text-emerald-700 dark:text-emerald-300" role="status">
+                Message sent. I will reply when I can.
               </p>
             )}
             {status === 'error' && (
-              <p className="mt-4 text-sm text-red-400" role="alert">
-                Failed to send message. Please email me directly at {SITE.email}.
+              <p className="mt-4 text-sm text-red-700 dark:text-red-300" role="alert">
+                The form did not send. Email me directly at {SITE.email}.
               </p>
             )}
 
-            <Button
-              type="submit"
-              size="lg"
-              className="mt-6 w-full sm:w-auto"
-              disabled={status === 'loading'}
-            >
+            <Button type="submit" size="lg" className="mt-6" disabled={status === 'loading'}>
               <Send className="h-4 w-4" />
-              {status === 'loading' ? 'Sending...' : 'Send Message'}
+              {status === 'loading' ? 'Sending…' : 'Send message'}
             </Button>
           </motion.form>
         </div>

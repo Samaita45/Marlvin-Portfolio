@@ -1,54 +1,54 @@
-import { motion } from 'framer-motion'
-import { Briefcase, MapPin } from 'lucide-react'
-import { EXPERIENCES } from '@/data/experience'
+import { Link } from 'react-router-dom'
 import { SectionHeading } from '@/components/common/SectionHeading'
-import { Badge } from '@/components/ui/badge'
+import { StatusBadge } from '@/components/common/StatusBadge'
+import { FORMAL_EXPERIENCE, VENTURE_EXPERIENCE } from '@/data/experience'
 
 export function Experience() {
   return (
-    <section id="experience" className="section-padding bg-card/20" aria-label="Experience section">
+    <section id="experience" className="section-padding border-t border-border" aria-label="Experience">
       <div className="section-container">
-        <SectionHeading
-          label="Experience"
-          title="Professional Journey"
-          description="Building real-world experience through internships and client projects."
-        />
+        <SectionHeading index="07" label="07" title="Experience" />
 
-        <div className="mx-auto max-w-3xl space-y-6">
-          {EXPERIENCES.map((exp, i) => (
-            <motion.div
-              key={exp.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="glass-hover rounded-2xl p-8"
-            >
-              <div className="flex flex-wrap items-start justify-between gap-4">
-                <div className="flex items-start gap-4">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-electric/10 text-electric-light">
-                    <Briefcase className="h-6 w-6" aria-hidden="true" />
+        <div className="grid gap-10 lg:grid-cols-2">
+          <div>
+            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+              Formal experience
+            </p>
+            <div className="mt-4 space-y-4">
+              {FORMAL_EXPERIENCE.map((item) => (
+                <article key={item.id} className="border border-border p-6">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <h3 className="font-display text-2xl text-foreground">{item.role}</h3>
+                    <StatusBadge
+                      status={item.status === 'In Progress' ? 'development' : 'completed'}
+                      label={item.status}
+                    />
                   </div>
-                  <div>
-                    <h3 className="text-xl font-semibold text-foreground">{exp.role}</h3>
-                    <p className="mt-1 flex items-center gap-1.5 text-muted-foreground">
-                      <MapPin className="h-4 w-4" aria-hidden="true" />
-                      {exp.company}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex flex-col items-end gap-2">
-                  <Badge variant={exp.status === 'In Progress' ? 'success' : 'secondary'}>
-                    {exp.status}
-                  </Badge>
-                  <span className="text-sm text-muted-foreground">{exp.period}</span>
-                </div>
-              </div>
-              <p className="mt-4 text-sm leading-relaxed text-muted-foreground md:text-base">
-                {exp.description}
-              </p>
-            </motion.div>
-          ))}
+                  <p className="mt-2 text-sm text-muted-foreground">{item.company}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+              Ventures & product development
+            </p>
+            <div className="mt-4 space-y-4">
+              {VENTURE_EXPERIENCE.map((item) => (
+                <article key={item.id} className="border border-border p-6">
+                  <h3 className="font-display text-2xl text-foreground">{item.title}</h3>
+                  {item.organizationSlug ? (
+                    <Link to={`/org/${item.organizationSlug}`} className="mt-2 inline-block text-sm text-accent hover:underline">
+                      {item.organization}
+                    </Link>
+                  ) : (
+                    <p className="mt-2 text-sm text-muted-foreground">{item.organization}</p>
+                  )}
+                </article>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>

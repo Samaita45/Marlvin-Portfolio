@@ -1,32 +1,13 @@
-# Project Images
+# Project media
 
-Add screenshots here to show on project cards in the portfolio.
+Add real screenshots, hardware photos, LCD photos, diagrams, and mockups here.
 
-## How to add an image
+Do not add stock photos or generated fake product screens.
 
-1. Save your screenshot as JPG or PNG (recommended: **1200×675** or **16:9** ratio)
-2. Name it to match the project id, for example:
-   - `gardening-website.jpg`
-   - `catering-website.jpg`
-   - `water-quality.jpg`
-   - `dairy-farm.jpg`
-   - `farmer-marketplace.jpg`
-3. Update `src/data/projects.ts` and set the `image` field:
+Reference files from `src/data/projects.ts` in the `screenshots` array:
 
 ```ts
-image: '/projects/gardening-website.jpg',
+screenshots: [
+  { src: '/projects/omnia-dashboard.png', alt: 'Omnia Delivery dashboard' },
+]
 ```
-
-4. Optionally set `imageAlt` for accessibility:
-
-```ts
-imageAlt: 'Deep Waters Garden Services website homepage',
-```
-
-## Tips
-
-- Use **WebP** or **JPG** for photos (keep under ~300KB for fast loading)
-- Take screenshots from your live demo or Figma/design files
-- PNG works best for desktop app UI screenshots
-
-Current placeholder SVGs will show until you add your own images.

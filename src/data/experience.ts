@@ -1,20 +1,24 @@
-export interface Experience {
-  id: string
-  role: string
-  company: string
-  status: 'In Progress' | 'Completed'
-  description: string
-  period: string
-}
+import type { FormalExperience, VentureExperience } from '@/lib/types'
 
-export const EXPERIENCES: Experience[] = [
+export const FORMAL_EXPERIENCE: FormalExperience[] = [
   {
     id: 'codveda',
-    role: 'Frontend Development Intern',
+    role: 'Front-End Development Intern',
     company: 'Codveda Technologies',
     status: 'In Progress',
     description:
-      'Developing responsive web interfaces, collaborating with senior developers, and applying modern frontend practices in a professional environment.',
-    period: '2025 — Present',
+      'Building responsive web interfaces and applying frontend practices in a professional team. This is formal internship experience, separate from the products I am building.',
+    period: 'In progress',
+  },
+]
+
+export const VENTURE_EXPERIENCE: VentureExperience[] = [
+  {
+    id: 'neighbourlink',
+    title: 'Product building',
+    organization: 'NeighborLink Technologies',
+    organizationSlug: 'neighbourlink-tech',
+    description:
+      'We started NeighborLink Technologies. I am working on the products we are building there, including Omnia. This is not employment.',
   },
 ]

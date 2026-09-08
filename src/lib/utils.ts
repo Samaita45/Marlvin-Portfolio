@@ -28,6 +28,12 @@ export function scrollToSection(id: string) {
   }
 }
 
+export function hashFromHref(href: string): string | null {
+  const hashIndex = href.indexOf('#')
+  if (hashIndex === -1) return null
+  return href.slice(hashIndex + 1)
+}
+
 /** Resolve a path from /public for GitHub Pages base URL (handles spaces in filenames) */
 export function getPublicAssetSrc(path: string): string {
   if (path.startsWith('http://') || path.startsWith('https://')) {

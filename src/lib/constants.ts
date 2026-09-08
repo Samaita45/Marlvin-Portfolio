@@ -1,57 +1,36 @@
 export const SITE = {
   name: 'Marlvin Anesu Munyanyi',
-  shortName: 'Marlvin Munyanyi',
-  age: 21,
-  title: 'Software Developer Portfolio',
-  tagline:
-    'Building software solutions that solve real-world problems through technology, innovation, and intelligent systems.',
+  shortName: 'Marlvin',
+  firstName: 'Marlvin',
+  title: 'Computer Science Student · Software Developer · Product Builder',
+  identity: [
+    'Computer Science Student',
+    'Software Developer',
+    'Product Builder',
+    'Technology Entrepreneur',
+  ],
+  intro:
+    'Computer Science student at the University of Zimbabwe building software products, intelligent systems and practical technology solutions.',
+  location: 'Harare, Zimbabwe',
+  university: 'University of Zimbabwe',
+  degree: 'BSc (Honours) Computer Science',
+  graduation: '2028',
   email: 'marlvinmunyanyi4@gmail.com',
   phone: '+263787456274',
+  phoneDisplay: '+263 78 745 6274',
   whatsapp: '263787456274',
   github: 'Samaita45',
-  linkedin: 'https://linkedin.com/in/marlvin-munyanyi',
+  linkedin: 'https://linkedin.com/in/marlvinmunyanyi',
+  linkedinHandle: 'marlvinmunyanyi',
   url: 'https://samaita45.github.io/Marlvin-Portfolio/',
-  profileImage: '/projects/Profile.jpeg',
+  profileImage: '/images/marlvin-munyanyi.jpg',
+  cvPath: '/cv/marlvin-cv.pdf',
+  cvFilename: 'Marlvin_Munyanyi_CV.pdf',
 } as const
-
-/** Total repos on GitHub (public + private). Public API only lists public repos. */
-export const GITHUB_STATS = {
-  totalRepositories: 7,
-} as const
-
-export const TITLE_ROTATION = [
-  'Computer Science Student',
-  'Software Developer',
-  'IoT Developer',
-  'Machine Learning Enthusiast',
-  'Web Developer',
-] as const
 
 export const NAV_LINKS = [
-  { label: 'Home', href: '#home' },
-  { label: 'About', href: '#about' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Education', href: '#education' },
-  { label: 'GitHub', href: '#github' },
-  { label: 'Contact', href: '#contact' },
-] as const
-
-export const TECH_STACK = [
-  'React',
-  'TypeScript',
-  'Python',
-  'Tailwind CSS',
-  'SQL',
-  'Git',
-  'IoT',
-  'Machine Learning',
-] as const
-
-export const HIGHLIGHTS = [
-  { title: 'Problem Solver', description: 'Analytical approach to complex technical challenges' },
-  { title: 'Fast Learner', description: 'Quickly adapts to new technologies and frameworks' },
-  { title: 'Team Player', description: 'Collaborates effectively in diverse development teams' },
-  { title: 'Passionate Builder', description: 'Dedicated to creating impactful software products' },
+  { label: 'Work', href: '/#work' },
+  { label: 'About', href: '/#about' },
+  { label: 'GitHub', href: '/#github' },
+  { label: 'Contact', href: '/#contact' },
 ] as const

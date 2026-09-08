@@ -1,20 +1,9 @@
-export interface Education {
-  institution: string
-  degree: string
-  graduation: string
-  coursework: string[]
-}
+import type { EducationRecord } from '@/lib/types'
 
-export const EDUCATION: Education = {
+export const EDUCATION: EducationRecord = {
   institution: 'University of Zimbabwe',
-  degree: 'Bachelor of Science in Computer Science',
+  degree: 'BSc (Honours) Computer Science',
   graduation: '2028',
-  coursework: [
-    'Machine Learning',
-    'Software Engineering',
-    'Computer Networks',
-    'Database Management',
-    'Data Structures and Algorithms',
-    'Web Development',
-  ],
+  location: 'Harare, Zimbabwe',
+  status: 'In progress',
 }

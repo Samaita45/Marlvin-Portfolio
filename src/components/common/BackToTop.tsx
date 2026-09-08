@@ -16,17 +16,16 @@ export function BackToTop() {
     <AnimatePresence>
       {visible && (
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.8 }}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 8 }}
           className="fixed bottom-6 right-6 z-50"
         >
           <Button
-            variant="glass"
+            variant="outline"
             size="icon"
             aria-label="Back to top"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="rounded-full shadow-glow"
           >
             <ArrowUp className="h-5 w-5" />
           </Button>

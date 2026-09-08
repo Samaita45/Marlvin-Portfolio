@@ -1,78 +1,61 @@
-import { Github, Heart, Linkedin, Mail } from 'lucide-react'
-import { NAV_LINKS, SITE } from '@/lib/constants'
-import { scrollToSection } from '@/lib/utils'
+import { Github, Linkedin, Mail } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { SITE } from '@/lib/constants'
 
 export function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="border-t border-border bg-card/30">
-      <div className="section-container section-padding pb-8">
+    <footer className="border-t border-border">
+      <div className="section-container py-12 md:py-16">
         <div className="grid gap-10 md:grid-cols-3">
           <div>
-            <h3 className="text-lg font-bold gradient-text">{SITE.name}</h3>
-            <p className="mt-2 text-sm text-muted-foreground">{SITE.tagline}</p>
+            <p className="font-display text-2xl text-foreground">{SITE.name}</p>
           </div>
-
           <div>
-            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground">
-              Quick Links
-            </h4>
-            <ul className="space-y-2">
-              {NAV_LINKS.slice(0, 5).map((link) => (
-                <li key={link.href}>
-                  <button
-                    onClick={() => scrollToSection(link.href.replace('#', ''))}
-                    className="text-sm text-muted-foreground transition-colors hover:text-electric-light cursor-pointer focus-ring rounded"
-                  >
-                    {link.label}
-                  </button>
-                </li>
-              ))}
+            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">On this site</p>
+            <ul className="mt-4 space-y-2 text-sm">
+              <li><Link to="/#work" className="text-muted-foreground hover:text-foreground">Work</Link></li>
+              <li><Link to="/#about" className="text-muted-foreground hover:text-foreground">About</Link></li>
+              <li><Link to="/#github" className="text-muted-foreground hover:text-foreground">GitHub</Link></li>
+              <li><Link to="/#contact" className="text-muted-foreground hover:text-foreground">Contact</Link></li>
             </ul>
           </div>
-
           <div>
-            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground">
-              Connect
-            </h4>
-            <div className="flex gap-3">
+            <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">Connect</p>
+            <div className="mt-4 flex gap-3">
               <a
                 href={`https://github.com/${SITE.github}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub profile"
-                className="focus-ring flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-secondary/50 text-muted-foreground transition-all hover:border-electric/40 hover:text-electric-light"
+                className="focus-ring flex h-10 w-10 items-center justify-center border border-border text-muted-foreground hover:text-foreground"
               >
-                <Github className="h-5 w-5" />
+                <Github className="h-4 w-4" />
               </a>
               <a
                 href={SITE.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn profile"
-                className="focus-ring flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-secondary/50 text-muted-foreground transition-all hover:border-electric/40 hover:text-electric-light"
+                className="focus-ring flex h-10 w-10 items-center justify-center border border-border text-muted-foreground hover:text-foreground"
               >
-                <Linkedin className="h-5 w-5" />
+                <Linkedin className="h-4 w-4" />
               </a>
               <a
                 href={`mailto:${SITE.email}`}
                 aria-label="Send email"
-                className="focus-ring flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-secondary/50 text-muted-foreground transition-all hover:border-electric/40 hover:text-electric-light"
+                className="focus-ring flex h-10 w-10 items-center justify-center border border-border text-muted-foreground hover:text-foreground"
               >
-                <Mail className="h-5 w-5" />
+                <Mail className="h-4 w-4" />
               </a>
             </div>
+            <p className="mt-4 text-sm text-muted-foreground">{SITE.location}</p>
           </div>
         </div>
-
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 sm:flex-row">
-          <p className="flex items-center gap-1 text-sm text-muted-foreground">
-            Designed and Developed by{' '}
-            <span className="font-medium text-foreground">{SITE.name}</span>
-            <Heart className="inline h-3.5 w-3.5 text-red-500" aria-hidden="true" />
-          </p>
-          <p className="text-sm text-muted-foreground">&copy; {year} All rights reserved.</p>
+        <div className="mt-12 flex flex-col justify-between gap-3 border-t border-border pt-6 text-sm text-muted-foreground sm:flex-row">
+          <p>Designed and developed by {SITE.name}</p>
+          <p>&copy; {year}</p>
         </div>
       </div>
     </footer>

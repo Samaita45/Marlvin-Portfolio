@@ -1,221 +1,78 @@
-import { motion } from 'framer-motion'
-import { ExternalLink, GitFork, Github, Star } from 'lucide-react'
-import { SITE, GITHUB_STATS } from '@/lib/constants'
-import { useGitHub } from '@/hooks/useGitHub'
+import { ExternalLink, Github, Lock } from 'lucide-react'
 import { SectionHeading } from '@/components/common/SectionHeading'
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { cn } from '@/lib/utils'
-
-const LANGUAGE_COLORS: Record<string, string> = {
-  TypeScript: 'bg-blue-400',
-  JavaScript: 'bg-yellow-400',
-  Python: 'bg-green-400',
-  Java: 'bg-orange-400',
-  HTML: 'bg-red-400',
-  CSS: 'bg-purple-400',
-  'Visual Basic': 'bg-indigo-400',
-}
+import { useGitHub } from '@/hooks/useGitHub'
+import { SITE } from '@/lib/constants'
 
 export function GitHubShowcase() {
-  const { stats, loading } = useGitHub()
-
-  const languages = stats?.languages ?? {}
-  const totalLang = Object.values(languages).reduce((a, b) => a + b, 0)
-  const publicRepoCount = stats?.user.public_repos ?? stats?.repos.length ?? 0
-  const privateRepoCount = Math.max(0, GITHUB_STATS.totalRepositories - publicRepoCount)
+  const { stats, loading, error } = useGitHub()
 
   return (
-    <section id="github" className="section-padding" aria-label="GitHub showcase section">
+    <section id="github" className="section-padding border-t border-border" aria-label="GitHub">
       <div className="section-container">
-        <SectionHeading
-          label="Open Source"
-          title="GitHub Activity"
-          description={`${GITHUB_STATS.totalRepositories} repositories on GitHub — active across public and private projects.`}
-        />
+        <SectionHeading index="04" label="04" title="GitHub" />
 
-        {loading ? (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="glass h-48 animate-pulse rounded-2xl" />
-            ))}
-          </div>
-        ) : (
+        <div className="mb-8 flex flex-wrap items-center gap-3">
+          <Button variant="outline" asChild>
+            <a href={`https://github.com/${SITE.github}`} target="_blank" rel="noopener noreferrer">
+              <Github />
+              @{SITE.github}
+            </a>
+          </Button>
+          <p className="inline-flex items-center gap-2 text-sm text-muted-foreground">
+            <Lock className="h-4 w-4" aria-hidden="true" />
+            Other personal and organization repositories are private
+          </p>
+        </div>
+
+        {loading && <p className="text-sm text-muted-foreground">Loading public repositories…</p>}
+
+        {error && !stats && (
+          <p className="border border-dashed border-border px-5 py-8 text-sm text-muted-foreground">
+            Visit{' '}
+            <a
+              href={`https://github.com/${SITE.github}`}
+              className="underline underline-offset-4"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              github.com/{SITE.github}
+            </a>
+          </p>
+        )}
+
+        {stats && (
           <>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="glass mb-8 flex flex-wrap items-center justify-between gap-4 rounded-2xl p-6"
-            >
-              <div>
-                <p className="text-2xl font-bold text-foreground">
-                  {GITHUB_STATS.totalRepositories} repositories
-                </p>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  {publicRepoCount} public · {privateRepoCount} private
-                </p>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                <Badge variant="default">{GITHUB_STATS.totalRepositories} total</Badge>
-                <Badge variant="secondary">{publicRepoCount} public</Badge>
-                {privateRepoCount > 0 && (
-                  <Badge variant="outline">{privateRepoCount} private</Badge>
-                )}
-              </div>
-            </motion.div>
-
-            {/* Language breakdown */}
-            {totalLang > 0 && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="glass mb-8 rounded-2xl p-6"
-              >
-                <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-                  Top Languages
-                </h3>
-                <div className="mb-4 flex h-3 overflow-hidden rounded-full">
-                  {Object.entries(languages)
-                    .sort(([, a], [, b]) => b - a)
-                    .slice(0, 6)
-                    .map(([lang, count]) => (
-                      <div
-                        key={lang}
-                        className={cn(LANGUAGE_COLORS[lang] ?? 'bg-gray-400')}
-                        style={{ width: `${(count / totalLang) * 100}%` }}
-                        title={`${lang}: ${Math.round((count / totalLang) * 100)}%`}
-                      />
-                    ))}
-                </div>
-                <div className="flex flex-wrap gap-3">
-                  {Object.entries(languages)
-                    .sort(([, a], [, b]) => b - a)
-                    .slice(0, 6)
-                    .map(([lang, count]) => (
-                      <div key={lang} className="flex items-center gap-2 text-sm">
-                        <span
-                          className={cn('h-3 w-3 rounded-full', LANGUAGE_COLORS[lang] ?? 'bg-gray-400')}
-                        />
-                        <span className="text-muted-foreground">
-                          {lang}{' '}
-                          <span className="text-foreground font-medium">
-                            {Math.round((count / totalLang) * 100)}%
-                          </span>
-                        </span>
-                      </div>
-                    ))}
-                </div>
-              </motion.div>
+            {Object.keys(stats.languages).length > 0 && (
+              <ul className="mb-8 flex flex-wrap gap-2">
+                {Object.entries(stats.languages)
+                  .sort(([, a], [, b]) => b - a)
+                  .map(([lang]) => (
+                    <li key={lang} className="border border-border px-3 py-1 text-sm">
+                      {lang}
+                    </li>
+                  ))}
+              </ul>
             )}
 
-            {/* Contribution graph placeholder */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="glass mb-8 rounded-2xl p-6"
-            >
-              <div className="flex items-center justify-between">
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-                  Contribution Activity
-                </h3>
-                <Button variant="outline" size="sm" asChild>
-                  <a
-                    href={`https://github.com/${SITE.github}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Github className="h-4 w-4" />
-                    View Profile
-                  </a>
-                </Button>
-              </div>
-              <div className="mt-4 overflow-x-auto">
-                <img
-                  src={`https://ghchart.rshah.org/${SITE.github}`}
-                  alt={`${SITE.name} GitHub contribution chart`}
-                  className="mx-auto max-w-full rounded-lg opacity-90"
-                  loading="lazy"
-                />
-              </div>
-            </motion.div>
-
-            {/* Repositories */}
-            {privateRepoCount > 0 && (
-              <p className="mb-4 text-sm text-muted-foreground">
-                Public repositories are listed below. Additional private projects are available on
-                request for internships and collaborations.
-              </p>
-            )}
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {stats?.repos.length ? (
-                stats.repos.map((repo, i) => (
-                  <motion.a
-                    key={repo.id}
-                    href={repo.html_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.05 }}
-                    whileHover={{ y: -4 }}
-                    className="glass-hover block rounded-2xl p-6 cursor-pointer"
-                  >
-                    <div className="flex items-start justify-between gap-2">
-                      <h3 className="font-semibold text-foreground hover:text-electric-light transition-colors">
-                        {repo.name}
-                      </h3>
-                      <ExternalLink className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden="true" />
-                    </div>
-                    {repo.description && (
-                      <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">
-                        {repo.description}
-                      </p>
-                    )}
-                    <div className="mt-4 flex items-center gap-4 text-xs text-muted-foreground">
-                      {repo.language && (
-                        <span className="flex items-center gap-1.5">
-                          <span
-                            className={cn(
-                              'h-2.5 w-2.5 rounded-full',
-                              LANGUAGE_COLORS[repo.language] ?? 'bg-gray-400',
-                            )}
-                          />
-                          {repo.language}
-                        </span>
-                      )}
-                      <span className="flex items-center gap-1">
-                        <Star className="h-3.5 w-3.5" aria-hidden="true" />
-                        {repo.stargazers_count}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <GitFork className="h-3.5 w-3.5" aria-hidden="true" />
-                        {repo.forks_count}
-                      </span>
-                    </div>
-                  </motion.a>
-                ))
-              ) : (
-                <div className="glass col-span-full rounded-2xl p-10 text-center">
-                  <Github className="mx-auto h-12 w-12 text-muted-foreground" aria-hidden="true" />
-                  <p className="mt-4 text-muted-foreground">
-                    Visit my GitHub profile to explore repositories and contributions.
-                  </p>
-                  <Button variant="default" className="mt-4" asChild>
-                    <a
-                      href={`https://github.com/${SITE.github}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Github className="h-4 w-4" />
-                      @{SITE.github}
-                    </a>
-                  </Button>
-                </div>
-              )}
+            <div className="grid gap-3 md:grid-cols-2">
+              {stats.repos.map((repo) => (
+                <a
+                  key={repo.id}
+                  href={repo.html_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border border-border p-5 transition-colors hover:border-foreground/30"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <h4 className="font-display text-xl text-foreground">{repo.name}</h4>
+                    <ExternalLink className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+                  </div>
+                  {repo.description && (
+                    <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{repo.description}</p>
+                  )}
+                </a>
+              ))}
             </div>
           </>
         )}

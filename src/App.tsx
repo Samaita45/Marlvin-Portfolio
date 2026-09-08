@@ -1,13 +1,18 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import { BackToTop } from '@/components/common/BackToTop'
 import { PageLoader } from '@/components/common/PageLoader'
 import { ScrollProgress } from '@/components/common/ScrollProgress'
 import { Footer } from '@/components/layout/Footer'
 import { Navbar } from '@/components/layout/Navbar'
-import { HomePage } from '@/pages/HomePage'
 import { SITE } from '@/lib/constants'
+import { getOrganizationBySlug, getProjectBySlug } from '@/data/catalog'
+import { CaseStudyPage } from '@/pages/CaseStudyPage'
+import { HomePage } from '@/pages/HomePage'
+import { NotFoundPage } from '@/pages/NotFoundPage'
+import { OrganizationPage } from '@/pages/OrganizationPage'
+import { WorkPage } from '@/pages/WorkPage'
 
 function PageTransition({ children }: { children: React.ReactNode }) {
   return (
@@ -15,19 +20,47 @@ function PageTransition({ children }: { children: React.ReactNode }) {
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
-      transition={{ duration: 0.3, ease: 'easeOut' }}
+      transition={{ duration: 0.28, ease: 'easeOut' }}
     >
       {children}
     </motion.div>
   )
 }
 
-function AppLayout() {
+function usePageTitle() {
   const location = useLocation()
 
   useEffect(() => {
-    document.title = `${SITE.name} | ${SITE.title}`
-  }, [location])
+    const parts = location.pathname.split('/').filter(Boolean)
+    if (parts[0] === 'work' && parts[1]) {
+      const project = getProjectBySlug(parts[1])
+      document.title = project
+        ? `${project.title} | ${SITE.name}`
+        : `Work | ${SITE.name}`
+      return
+    }
+    if (parts[0] === 'org' && parts[1]) {
+      const org = getOrganizationBySlug(parts[1])
+      document.title = org ? `${org.name} | ${SITE.name}` : `Company | ${SITE.name}`
+      return
+    }
+    if (parts[0] === 'work') {
+      document.title = `Work | ${SITE.name}`
+      return
+    }
+    document.title = `${SITE.name} | Computer Science Student & Product Builder`
+  }, [location.pathname])
+}
+
+function AppLayout() {
+  const location = useLocation()
+  usePageTitle()
+
+  useEffect(() => {
+    if (!location.hash) {
+      window.scrollTo(0, 0)
+    }
+  }, [location.pathname, location.hash])
 
   return (
     <>
@@ -44,6 +77,38 @@ function AppLayout() {
                 </PageTransition>
               }
             />
+            <Route
+              path="/work"
+              element={
+                <PageTransition>
+                  <WorkPage />
+                </PageTransition>
+              }
+            />
+            <Route
+              path="/work/:slug"
+              element={
+                <PageTransition>
+                  <CaseStudyPage />
+                </PageTransition>
+              }
+            />
+            <Route
+              path="/org/:slug"
+              element={
+                <PageTransition>
+                  <OrganizationPage />
+                </PageTransition>
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <PageTransition>
+                  <NotFoundPage />
+                </PageTransition>
+              }
+            />
           </Routes>
         </AnimatePresence>
       </main>
@@ -57,7 +122,7 @@ export default function App() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1200)
+    const timer = setTimeout(() => setLoading(false), 500)
     return () => clearTimeout(timer)
   }, [])
 

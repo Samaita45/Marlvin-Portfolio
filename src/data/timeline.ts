@@ -1,33 +1,35 @@
-export interface TimelineItem {
-  year: string
-  title: string
-  description: string
-}
+import type { TimelineGroup } from '@/lib/types'
 
-export const ABOUT_TIMELINE: TimelineItem[] = [
+/** Year-level groups only. No month-level dates unless they are confirmed. */
+export const TIMELINE: TimelineGroup[] = [
   {
-    year: '2024',
-    title: 'Started Computer Science at UZ',
-    description: 'Began Bachelor of Science in Computer Science at the University of Zimbabwe.',
-  },
-  {
-    year: '2024',
-    title: 'First Client Web Projects',
-    description: 'Delivered professional websites for gardening and catering businesses.',
+    year: '2023',
+    items: ['Education'],
   },
   {
     year: '2025',
-    title: 'IoT & ML Projects',
-    description: 'Built smart water quality monitoring system combining sensors and machine learning.',
-  },
-  {
-    year: '2025',
-    title: 'Frontend Development Internship',
-    description: 'Joined Codveda Technologies to gain industry experience in frontend development.',
+    items: ['University technical projects'],
   },
   {
     year: '2026',
-    title: 'Building Startup Concepts',
-    description: 'Developing farmer transport and marketplace platform for agricultural logistics.',
+    items: [
+      'Frontend internship',
+      'Client websites',
+      'IoT projects',
+      'Software products',
+      'NeighborLink Technologies',
+      'Omnia',
+      'DCPOMS',
+      'CCNA',
+    ],
+  },
+  {
+    year: 'Later',
+    items: [
+      'Cyber Security',
+      'AWS Cloud Computing',
+      'MetaPlot',
+      'Landlord and tenant platform',
+    ],
   },
 ]
