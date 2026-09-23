@@ -29,11 +29,21 @@ export const ACHIEVEMENTS: Achievement[] = [
     issuer: 'freeCodeCamp',
   },
   {
+    id: 'ccna-itn',
+    title: 'CCNA: Introduction to Networks',
+    kind: 'certification',
+    status: 'completed',
+    issuer: 'Cisco Networking Academy',
+    detail: 'Offered by University of Zimbabwe Computer Science · completed 23 Sep 2026 · first CCNA milestone',
+    credential: '/certificates/ccna-introduction-to-networks.png',
+  },
+  {
     id: 'ccna',
     title: 'CCNA',
     kind: 'certification',
     status: 'in-progress',
     issuer: 'Cisco',
+    detail: 'Introduction to Networks complete · continuing the remaining courses',
   },
   {
     id: 'uz-progression',

@@ -163,6 +163,8 @@ export interface Achievement {
   status: AchievementStatus
   issuer?: string
   detail?: string
+  /** Path in /public (or external URL) to the certificate or proof */
+  credential?: string
 }
 
 export interface FormalExperience {

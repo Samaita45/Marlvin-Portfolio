@@ -1,6 +1,7 @@
 import { SectionHeading } from '@/components/common/SectionHeading'
 import { StatusBadge } from '@/components/common/StatusBadge'
 import { ACHIEVEMENTS } from '@/data/achievements'
+import { getPublicAssetSrc } from '@/lib/utils'
 
 const KIND_LABEL: Record<string, string> = {
   certification: 'Certification',
@@ -32,6 +33,16 @@ export function Achievements() {
                 </p>
                 <h3 className="mt-2 font-display text-xl text-foreground">{item.title}</h3>
                 {item.detail && <p className="mt-1 text-sm text-muted-foreground">{item.detail}</p>}
+                {item.credential && (
+                  <a
+                    href={getPublicAssetSrc(item.credential)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-2 inline-block font-mono text-[11px] uppercase tracking-[0.16em] text-foreground underline underline-offset-4 hover:text-muted-foreground"
+                  >
+                    View certificate ↗
+                  </a>
+                )}
               </div>
               <StatusBadge
                 status={
