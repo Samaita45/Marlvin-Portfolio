@@ -38,7 +38,7 @@ export function Achievements() {
                     href={getPublicAssetSrc(item.credential)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group mt-4 block max-w-md"
+                    className="group mt-4 block max-w-[240px]"
                   >
                     <img
                       src={getPublicAssetSrc(item.credential)}
