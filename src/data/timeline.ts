@@ -13,7 +13,6 @@ export const TIMELINE: TimelineGroup[] = [
   {
     year: '2026',
     items: [
-      'Frontend internship',
       'Client websites',
       'IoT projects',
       'Software products',

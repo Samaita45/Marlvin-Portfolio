@@ -38,9 +38,17 @@ export function Achievements() {
                     href={getPublicAssetSrc(item.credential)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-2 inline-block font-mono text-[11px] uppercase tracking-[0.16em] text-foreground underline underline-offset-4 hover:text-muted-foreground"
+                    className="group mt-4 block max-w-md"
                   >
-                    View certificate ↗
+                    <img
+                      src={getPublicAssetSrc(item.credential)}
+                      alt={`${item.title} certificate`}
+                      loading="lazy"
+                      className="w-full border border-border transition-opacity group-hover:opacity-90"
+                    />
+                    <span className="mt-2 inline-block font-mono text-[11px] uppercase tracking-[0.16em] text-foreground underline underline-offset-4 group-hover:text-muted-foreground">
+                      View full certificate ↗
+                    </span>
                   </a>
                 )}
               </div>

@@ -15,13 +15,6 @@ export const ACHIEVEMENTS: Achievement[] = [
     issuer: 'ICDL',
   },
   {
-    id: 'codveda-internship',
-    title: 'Front-End Development Internship',
-    kind: 'other',
-    status: 'in-progress',
-    issuer: 'Codveda Technologies',
-  },
-  {
     id: 'fcc-python',
     title: 'freeCodeCamp Python Certification',
     kind: 'certification',

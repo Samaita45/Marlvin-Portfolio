@@ -1,16 +1,4 @@
-import type { FormalExperience, VentureExperience } from '@/lib/types'
-
-export const FORMAL_EXPERIENCE: FormalExperience[] = [
-  {
-    id: 'codveda',
-    role: 'Front-End Development Intern',
-    company: 'Codveda Technologies',
-    status: 'In Progress',
-    description:
-      'Building responsive web interfaces and applying frontend practices in a professional team. This is formal internship experience, separate from the products I am building.',
-    period: 'In progress',
-  },
-]
+import type { VentureExperience } from '@/lib/types'
 
 export const VENTURE_EXPERIENCE: VentureExperience[] = [
   {
